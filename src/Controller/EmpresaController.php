@@ -29,8 +29,8 @@ class EmpresaController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $empresa = $form->getData();
             $this->empresaRepository->save($empresa);  
-            $this->addFlash("success","Empresa criada com sucesso!");
-            return $this->render('empresa/list.html.twig');
+            // $this->addFlash("success","Empresa criada com sucesso!");
+            return $this->redirectToRoute('list_empresa');
         }
 
         return $this->render('empresa/new.html.twig', [
@@ -48,8 +48,8 @@ class EmpresaController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $empresa = $form->getData();
             $this->empresaRepository->save($empresa);
-            $this->addFlash("success","Empresa editada com sucesso!");
-            return $this->render('empresa/list.html.twig');
+            // $this->addFlash("success","Empresa editada com sucesso!");
+            return $this->redirectToRoute('list_empresa');
         }
 
         return $this->render('empresa/new.html.twig', [
