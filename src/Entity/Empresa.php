@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EmpresaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -27,6 +29,13 @@ class Empresa {
 
     #[ORM\Column(type: "string", length: 11)]
     protected ?string $telefone;
+
+    #[ORM\ManyToMany(targetEntity: Socio::class, mappedBy: 'empresas')]
+    private Collection $socios;
+
+    public function __construct(){
+        $this->socios = new ArrayCollection();
+    }
 
     public function getId(): int {
         return $this->id;
@@ -70,6 +79,24 @@ class Empresa {
 
     public function getTelefone(): string {
         return $this->telefone;
+    }
+
+    public function addSocio(Socio $socio): self {
+        if(!$this->socios->contains($socio)){
+            $this->socios[] = $socio;
+        }
+        return $this;
+    }
+    
+    public function getSocios(): Collection {
+        return $this->socios;
+    }
+
+    public function removeSocio(Socio $socio): self {
+        if($this->socios->contains($socio)){
+            $this->socios->removeElement($socio);
+        }
+        return $this;
     }
 
 }

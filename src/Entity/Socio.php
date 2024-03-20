@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -24,6 +26,13 @@ class Socio {
     #[ORM\Column(type: "string",length: 11)]
     private $telefone;
 
+    #[ORM\ManyToMany(targetEntity: Empresa::class, inversedBy: 'socios')]
+    #[ORM\JoinTable(name: 'socio_empresa')]
+    private Collection $empresas;
+
+    public function __construct(){
+        $this->empresas = new ArrayCollection();
+    }
 
     public function getId(): int {
         return $this->id;
@@ -59,6 +68,25 @@ class Socio {
 
     public function getTelefone(): string {
         return $this->telefone;
+    }
+
+    public function addEmpresa(Empresa $empresa): self {
+        if(!$this->empresas->contains($empresa)){
+            $empresa->addSocio($this);
+            $this->empresas[] = $empresa;
+        }
+        return $this;
+    }
+
+    public function getEmpresas(): Collection{
+        return $this->empresas;
+    }
+
+    public function removeEmpresa(Empresa $empresa): self{
+        if($this->empresas->contains($empresa)){
+            $this->empresas->removeElement($empresa);
+        }
+        return $this;
     }
 
 
