@@ -3,6 +3,9 @@
 namespace App\Form\Type;
 
 use App\Entity\Socio;
+use App\Entity\Empresa;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,6 +21,13 @@ class SocioType extends AbstractType {
                 ->add('nome', TextType::class)
                 ->add('endereco', TextType::class)
                 ->add('telefone', TelType::class)
+                ->add('empresas', EntityType::class, [
+                    'class' => Empresa::class,
+                    'choices' => $options['empresas'],
+                    'choice_label' => 'razaoSocial',
+                    'multiple' => true,
+                    'expanded' => false,
+                ])
                 ->add('salvar', SubmitType::class)
                 ->add('limpar', ResetType::class)
             ;
@@ -25,7 +35,8 @@ class SocioType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
-            'data_class' => Socio::class
+            'data_class' => Socio::class,
+            'empresas' => new ArrayCollection()
         ]);
     }
 }

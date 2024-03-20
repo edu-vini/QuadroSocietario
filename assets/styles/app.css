@@ -1,3 +1,19 @@
-body {
-    background-color: skyblue;
+a {
+    color: white !important; 
+}
+
+a:hover {
+    color: rgb(204, 204, 204) !important;
+}
+
+table a {
+    color: #0d6efd !important; 
+}
+
+#content {
+    padding: 100px;
+}
+
+.list {
+    margin-top: 15vh;
 }

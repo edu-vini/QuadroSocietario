@@ -1,31 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>Lista de Sócios</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">CPF</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Telefone</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for socio in list %}
-                <tr>
-                    <td>
-                        <a href="/socio/{{socio.id}}">Editar</a>
-                        <a href="/socio/{{socio.id}}/excluir">Excluir</a>
-                    </td>
-                    <th scope="row">{{socio.cpf}}</th>
-                    <td>{{socio.nome}}</td>
-                    <td>{{socio.endereco}}</td>
-                    <td>{{socio.telefone}}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+	<div class="row list">
+		<h1>Lista de Sócios
+			<a href="{{path('form_socio')}}" class="btn btn-primary col-sm-2">Adicionar</a>
+		</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">CPF</th>
+					<th scope="col">Nome</th>
+					<th scope="col">Endereço</th>
+					<th scope="col">Telefone</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for socio in list %}
+					<tr>
+						<td>
+							<a href="/socio/{{socio.id}}">Editar</a>
+							<a href="/socio/{{socio.id}}/excluir">Excluir</a>
+						</td>
+						<th scope="row">{{socio.cpf}}</th>
+						<td>{{socio.nome}}</td>
+						<td>{{socio.endereco}}</td>
+						<td>{{socio.telefone}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}
