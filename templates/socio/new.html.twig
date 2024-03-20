@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-5">
+            {% for message in app.flashes('success')%}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+            {% endfor %}
+            <h1>Sócio</h1>
+            {{form(form)}}        
+        </div>
+    </div>
+{% endblock %}
+
+
