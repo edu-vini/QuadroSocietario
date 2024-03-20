@@ -13,22 +13,22 @@ class Empresa {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
-    protected ?int $id;
+    private ?int $id;
 
     #[ORM\Column(type: "string", length: 14)]
-    protected ?string $cnpj;
+    private string $cnpj;
 
     #[ORM\Column(type: "string")]
-    protected ?string $razaoSocial;
+    private string $razaoSocial;
 
     #[ORM\Column(type: "string")]
-    protected ?string $fantasia;
+    private string $fantasia;
 
     #[ORM\Column(type: "string")]
-    protected ?string $endereco;
+    private string $endereco;
 
     #[ORM\Column(type: "string", length: 11)]
-    protected ?string $telefone;
+    private string $telefone;
 
     #[ORM\ManyToMany(targetEntity: Socio::class, mappedBy: 'empresas')]
     private Collection $socios;

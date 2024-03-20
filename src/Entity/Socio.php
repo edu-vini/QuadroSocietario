@@ -82,8 +82,9 @@ class Socio {
         return $this->empresas;
     }
 
-    public function removeEmpresa(Empresa $empresa): self{
+    public function removeEmpresa(Empresa $empresa): self {
         if($this->empresas->contains($empresa)){
+            $empresa->removeSocio($this);
             $this->empresas->removeElement($empresa);
         }
         return $this;
