@@ -2,6 +2,9 @@
 
 namespace App\Api\Controller;
 
+use App\Api\Entity\Empresa;
+use App\Entity\Socio;
+use App\Form\Type\EmpresaType;
 use App\Repository\SocioRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +28,7 @@ class SocioController extends AbstractController {
             'Sócio'
         ]
     )]
-    #[Route(path: '/', methods: ['GET'])]
+    #[Route(path: '', methods: ['GET'])]
     public function getAll(): Response {
         return $this->json($this->socioRepository->findAll());
     }
@@ -57,15 +60,40 @@ class SocioController extends AbstractController {
             'Sócio'
         ]
     )]
-    #[Route(path: '/api/socio', methods: ['POST'])]
+    #[Route(path: '', methods: ['POST'])]
     public function post(Request $request): Response {
-        return $this->json('Empresa Criada com Sucesso!');
+        try {
+            $socio = new Socio();
+            $socio->setCpf($request->getPayload()->get('cpf'));
+            $socio->setNome($request->getPayload()->get('nome'));
+            $socio->setEndereco($request->getPayload()->get('endereco'));
+            $socio->setTelefone($request->getPayload()->get('telefone'));
+            $this->socioRepository->save($socio);
+        } catch (\TypeError $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        } catch (\Exception $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        }
+        
+        return $this->json([
+            'status'=>'success',
+            'message'=> 'Empresa Criada com Sucesso!'
+        ]);
     }
 
     #[OA\Put(
         path: '/api/socio/{id}',
         responses: [
             new OA\Response(response: '200', description: 'Empresa Criada com Sucesso!')
+        ],
+        parameters: [
+            new OA\PathParameter(parameter: 'id',name: 'id')
         ],
         requestBody: new OA\RequestBody(ref: '#components/requestBodies/Socio'),
         tags: [
@@ -74,6 +102,71 @@ class SocioController extends AbstractController {
     )]
     #[Route(path: '/{id}', methods: ['PUT'])]
     public function put(int $id, Request $request): Response {
-        return $this->json('Empresa Criada com Sucesso!');
+        try {
+            $socio = $this->socioRepository->find($id);
+
+            if($request->getPayload()->has('cpf')){
+                $socio->setCpf($request->getPayload()->get('cpf'));
+            }
+            if($request->getPayload()->has('nome')){
+                $socio->setCpf($request->getPayload()->get('nome'));
+            }
+            if($request->getPayload()->has('endereco')){
+                $socio->setCpf($request->getPayload()->get('endereco'));
+            }
+            if($request->getPayload()->has('telefone')){
+                $socio->setCpf($request->getPayload()->get('telefone'));
+            }
+
+            $this->socioRepository->save($socio);
+        } catch (\TypeError $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        } catch (\Exception $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        }
+        return $this->json([
+            'status'=>'success',
+            'message'=> 'Empresa Atualizada com Sucesso!'
+        ]);
     }
+
+    #[OA\Delete(
+        path: '/api/socio/{id}',
+        responses: [
+            new OA\Response(response: '200', description: 'JSON Contendo a Empresas.')
+        ],
+        parameters: [
+            new OA\PathParameter(parameter: 'id',name: 'id')
+        ],
+        tags: [
+            'Sócio'
+        ]
+    )]
+    #[Route(path: '/{id}', methods: ['DELETE'])]
+    public function delete(int $id): Response {
+        try{
+            $this->socioRepository->delete($id);
+        } catch (\TypeError $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        } catch (\Exception $e){
+            return $this->json([
+                'status'=>'error',
+                'message'=> $e->getMessage()
+            ], 400);
+        }
+        return $this->json([
+            'status'=>'success',
+            'message'=>'Sócio deletado com Sucesso!'
+        ]);
+    }
+
 }
