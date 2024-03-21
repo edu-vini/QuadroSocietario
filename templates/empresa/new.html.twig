@@ -3,15 +3,9 @@
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-5">
-            {% for message in app.flashes('success')%}
-            <div class="alert alert-success">
-                {{message}}
-            </div>
-            {% endfor %}
             <h1>Empresa
                 <a href="{{path('list_empresa')}}" class="btn btn-primary">Voltar</a>
             </h1>
-            
             {{form(form)}}
         </div>
     </div>

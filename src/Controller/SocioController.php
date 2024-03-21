@@ -31,7 +31,7 @@ class SocioController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $socio = $form->getData();
             $this->socioRepository->save($socio);
-            // $this->addFlash("success","Socio criado com sucesso!");
+            $this->addFlash("success","Socio criado com sucesso!");
             return $this->redirectToRoute('list_socio');
         }
 
@@ -51,7 +51,7 @@ class SocioController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $socio = $form->getData();
             $this->socioRepository->save($socio);
-            // $this->addFlash("success","Socio editado com sucesso!");
+            $this->addFlash("success","Socio editado com sucesso!");
             return $this->redirectToRoute('list_socio');
         }
 
