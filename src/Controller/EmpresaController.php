@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Empresa;
 use App\Form\Type\EmpresaType;
 use App\Repository\EmpresaRepository;
@@ -18,7 +17,6 @@ class EmpresaController extends AbstractController {
         $this->empresaRepository = $empresaRepository;
         $this->socioRepository = $socioRepository;
     }
-
     #[Route(path: '/empresa/incluir', name: "form_empresa")]
     public function new(Request $request): Response {
         $empresa = new Empresa();
