@@ -5,7 +5,7 @@ namespace App\Api\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use OpenApi as OA;
 class DocController extends AbstractController {
 
     #[Route(path: '/docs')]
@@ -15,9 +15,7 @@ class DocController extends AbstractController {
 
     #[Route(path: '/swagger.json', name:'json_swagger')]
     public function swaggerJson(): Response {
-        $openapi = \OpenApi\Generator::scan(['C:\Des\Symfony\quadroSocietario\src']);
-        $response = new Response($openapi->toJson(), Response::HTTP_OK, ['Content-Type'=> 'application/json']);
-        return $response;
+        return $this->json(OA\Generator::scan(['../src/Api']));
     }
 
 }
