@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="row list">
+		<h1>Lista de Usuários
+			<a href="{{path('form_usuario')}}" class="btn btn-primary col-sm-2">Adicionar</a>
+		</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">#</th>
+					<th scope="col">Nome</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for usuario in list %}
+					<tr>
+						<td>
+							<a href="/usuario/{{usuario.id}}">Editar</a>
+							<a href="/usuario/{{usuario.id}}/excluir">Excluir</a>
+						</td>
+						<th scope="row">{{usuario.id}}</th>						
+						<td scope="row">{{usuario.nomeUsuario}}</td>						
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}
