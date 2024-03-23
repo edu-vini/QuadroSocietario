@@ -91,6 +91,6 @@ class EmpresaController extends AbstractController {
         $socio->removeEmpresa($this->empresaRepository->find($idEmpresa));
         $this->socioRepository->save($socio);
 
-        return $this->redirectToRoute('list_socio_empresa');
+        return $this->redirectToRoute('list_socio_empresa',['id'=>$idEmpresa]);
     }
 }
