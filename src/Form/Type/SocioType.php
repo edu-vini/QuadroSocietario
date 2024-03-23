@@ -17,10 +17,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class SocioType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
             $builder
-                ->add('cpf', TextType::class)
+                ->add('cpf', TextType::class, [
+                    'attr' => [
+                        'data-mask'=>'000.000.000-00',
+                        'minlength'=>'14'
+                    ]
+                ])
                 ->add('nome', TextType::class)
                 ->add('endereco', TextType::class)
-                ->add('telefone', TelType::class)
+                ->add('telefone', TelType::class, [
+                    'attr' => [
+                        'data-mask'=>'(00) 0 0000-0000',
+                        'minlength'=>'16'
+                    ]
+                ])
                 ->add('empresas', EntityType::class, [
                     'class' => Empresa::class,
                     'choices' => $options['empresas'],

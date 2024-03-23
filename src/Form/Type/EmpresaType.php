@@ -17,11 +17,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class EmpresaType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-        ->add('cnpj', TextType::class)
+        ->add('cnpj', TextType::class, [
+            'attr' => [
+                'data-mask' => '00.000.000/0000-00',
+                'minlength' => 18
+            ]
+        ])
         ->add('razaoSocial', TextType::class)
         ->add('fantasia', TextType::class)
         ->add('endereco', TextType::class)
-        ->add('telefone', TelType::class)
+        ->add('telefone', TextType::class, [
+            'attr' => [
+                'data-mask' => '(00) 0 0000-0000',
+                'minlength' => 16
+            ]
+        ])
         ->add('salvar', SubmitType::class)
         ->add('limpar', ResetType::class)
     ;

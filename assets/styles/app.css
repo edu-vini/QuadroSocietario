@@ -10,10 +10,44 @@ a:hover {
     color: #0d6efd !important; 
 }
 
-#content {
-    padding: 100px;
+body {
+    display: flex;
+    justify-content: center;
 }
 
-.list {
+#content {
     margin-top: 15vh;
+    margin-left: 25px;
+    margin-right: 25px;
+
 }
+
+.list .container {
+    margin-top: 50px;
+}
+
+.table-header {
+    font-weight: bold;
+}
+
+.table-content div, .table-header div {
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    height: 100%;
+    align-items: center;
+}
+
+.table-content div .btn{
+    margin: 5px;
+}
+
+
+.table-content, .table-header {
+    display: flex;
+    align-content: center;
+    height: 3em;
+    border-bottom: 1px rgb(181, 181, 181) solid
+} 
+

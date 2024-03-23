@@ -14,11 +14,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_SOCIO')]
 class SocioController extends AbstractController {
-    private SocioRepository $socioRepository;
-    private EmpresaRepository $empresaRepository;
-    public function __construct(SocioRepository $socioRepository, EmpresaRepository $empresaRepository) {
-        $this->socioRepository = $socioRepository;
-        $this->empresaRepository = $empresaRepository;
+    public function __construct(
+        private SocioRepository $socioRepository, 
+        private EmpresaRepository $empresaRepository) {
     }
 
     #[Route(path: '/socio/incluir', name: "form_socio")]
@@ -53,7 +51,7 @@ class SocioController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $socio = $form->getData();
             $this->socioRepository->save($socio);
-            // $this->addFlash("success","Socio editado com sucesso!");
+            $this->addFlash("success","Socio editado com sucesso!");
             return $this->redirectToRoute('list_socio');
         }
 

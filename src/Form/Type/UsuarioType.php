@@ -18,7 +18,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UsuarioType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('nomeUsuario', TextType::class)
+            ->add('nomeUsuario', TextType::class, [
+                'attr'=>[
+                    'maxlength'=>20
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'As senhas precisam ser iguais!',

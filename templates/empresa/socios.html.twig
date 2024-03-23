@@ -2,8 +2,8 @@
 
 {% block content %}
 	<div class="list">
-		<h1>Lista de Sócios
-			<a href="{{path('form_socio')}}" class="btn btn-primary col-sm-2 ">Adicionar</a>
+		<h1> Quadro Societário | {{empresa.razaoSocial}} 
+			<a href="{{path('list_empresa')}}" class="btn btn-primary col-sm-2 ">Voltar</a>
 		</h1>
 		<div class="container">
 			<div class="row table-header">
@@ -20,8 +20,7 @@
 				<div class="col-sm-3"> {{socio.endereco}}  </div>
 				<div class="col-sm-2 telefone"> {{socio.telefone}}  </div>
 				<div class="col-sm-2">
-					<a href="{{ path('form_socio_edit', {id: socio.id}) }}" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
-					<a href="{{ path('delete_socio', {id: socio.id}) }}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+					<a href="{{ path('remover_socio_empresa', {idSocio: socio.id, idEmpresa: empresa.id}) }}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
 				</div>
 			</div>
 			{% endfor %}
