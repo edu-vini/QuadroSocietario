@@ -14,7 +14,6 @@ class AuthenticationEntryPoint implements AuthenticationEntryPointInterface {
     }
     public function start(Request $request, ?AuthenticationException $authException = null): Response
     {
-
         $request->getSession()->getFlashBag()->add('note', 'Você precisa estar logado para acessar essa página!');
         return new RedirectResponse($this->urlGenerator->generate('form_login'));
     }

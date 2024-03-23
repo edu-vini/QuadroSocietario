@@ -3,7 +3,10 @@
 namespace App\Form\Type;
 
 use App\Entity\Usuario;
+use App\Security\Roles;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -32,6 +35,11 @@ class UsuarioType extends AbstractType {
                     'label'=>'Repita a Senha'
                 ]
             ])
+            ->add('roles',  ChoiceType::class, [
+                'choices' => Roles::get(),
+                'expanded' => false,
+                'multiple' => true
+            ]) 
             ->add('salvar', SubmitType::class)
             ->add('limpar', ResetType::class);
         
