@@ -3,11 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\EmpresaRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use OpenApi\Attributes as OA;
-
 
 #[ORM\Entity(repositoryClass: EmpresaRepository::class)]
 class Empresa {

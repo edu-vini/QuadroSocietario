@@ -3,21 +3,20 @@
 namespace App\Repository;
 
 use App\Entity\Socio;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Service\SocioService;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SocioRepository extends ServiceEntityRepository {
-    public function __construct(ManagerRegistry $managerRegistry){
-        parent::__construct($managerRegistry, Socio::class);
+class SocioRepository extends AbstractRepository {
+    protected string $entityManager = Socio::class;
+    public function __construct(
+        private SocioService $socioService,
+        ManagerRegistry $managerRegistry
+    ){
+        parent::__construct($managerRegistry);
     }
-
-    public function save(Socio $socio){
+    public function save($socio){
+        $this->socioService->removeChars($socio);
         $this->getEntityManager()->persist($socio);
-        $this->getEntityManager()->flush();
-    }
-
-    public function delete(int $id){        
-        $this->getEntityManager()->remove($this->find($id));
         $this->getEntityManager()->flush();
     }
 }

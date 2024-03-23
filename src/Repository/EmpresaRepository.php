@@ -3,21 +3,32 @@
 namespace App\Repository;
 
 use App\Entity\Empresa;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Service\EmpresaService;
 use Doctrine\Persistence\ManagerRegistry;
 
-class EmpresaRepository extends ServiceEntityRepository {
-    public function __construct(ManagerRegistry $managerRegistry){
-        parent::__construct($managerRegistry, Empresa::class);
+class EmpresaRepository extends AbstractRepository {
+    protected string $entityManager = Empresa::class;
+    public function __construct(
+        private EmpresaService $empresaService,
+        ManagerRegistry $managerRegistry,
+    ){
+        parent::__construct($managerRegistry);
     }
 
-    public function save(Empresa $empresa){
+    public function save($empresa): void {
+        $this->empresaService->removeChars($empresa);
         $this->getEntityManager()->persist($empresa);
         $this->getEntityManager()->flush();
     }
 
-    public function delete(int $id){        
-        $this->getEntityManager()->remove($this->find($id));
-        $this->getEntityManager()->flush();
+    public function getSocios(Empresa $empresa): array {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+            SELECT s.id, s.cpf, s.nome, s.endereco, s.telefone
+            FROM socio s LEFT JOIN socio_empresa se ON s.id = se.socio_id
+            WHERE se.empresa_id = :id 
+        ";
+        $result = $conn->executeQuery($sql, ['id'=>$empresa->getId()]);
+        return $result->fetchAllAssociative();
     }
 }
