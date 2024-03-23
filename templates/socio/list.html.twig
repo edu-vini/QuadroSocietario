@@ -8,24 +8,24 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col"></th>
 					<th scope="col">CPF</th>
 					<th scope="col">Nome</th>
 					<th scope="col">Endereço</th>
 					<th scope="col">Telefone</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for socio in list %}
 					<tr>
-						<td>
-							<a href="/socio/{{socio.id}}">Editar</a>
-							<a href="/socio/{{socio.id}}/excluir">Excluir</a>
-						</td>
 						<th scope="row">{{socio.cpf}}</th>
 						<td>{{socio.nome}}</td>
 						<td>{{socio.endereco}}</td>
 						<td>{{socio.telefone}}</td>
+						<td>
+							<a href="/socio/{{socio.id}}" class="btn btn-secondary">Editar</a>
+							<a href="/socio/{{socio.id}}/excluir" class="btn btn-danger">Excluir</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

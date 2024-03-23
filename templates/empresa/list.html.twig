@@ -5,30 +5,30 @@
 		<h1>Lista de Empresas
 			<a href="{{path('form_empresa')}}" class="btn btn-primary col-sm-2 ">Adicionar</a>
 		</h1>
-
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col"></th>
 					<th scope="col">CNPJ</th>
 					<th scope="col">Razão Social</th>
 					<th scope="col">Fantasia</th>
 					<th scope="col">Endereço</th>
 					<th scope="col">Telefone</th>
+					<th scope="col"></th>
+
 				</tr>
 			</thead>
 			<tbody>
 				{% for empresa in list %}
 					<tr>
-						<td>
-							<a href="/empresa/{{empresa.id}}">Editar</a>
-							<a href="/empresa/{{empresa.id}}/excluir">Excluir</a>
-						</td>
 						<th scope="row">{{empresa.cnpj}}</th>
 						<td>{{empresa.razaoSocial}}</td>
 						<td>{{empresa.fantasia}}</td>
 						<td>{{empresa.endereco}}</td>
 						<td>{{empresa.telefone}}</td>
+						<td>
+							<a href="/empresa/{{empresa.id}}" class="btn btn-secondary">Editar</a>
+							<a href="/empresa/{{empresa.id}}/excluir" class="btn btn-danger">Excluir</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

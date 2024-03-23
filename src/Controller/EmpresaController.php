@@ -10,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_EMPRESA')]
 class EmpresaController extends AbstractController {
     private EmpresaRepository $empresaRepository;
     private SocioRepository $socioRepository;
@@ -29,7 +31,7 @@ class EmpresaController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $empresa = $form->getData();
             $this->empresaRepository->save($empresa);  
-            // $this->addFlash("success","Empresa criada com sucesso!");
+            $this->addFlash("success","Empresa criada com sucesso!");
             return $this->redirectToRoute('list_empresa');
         }
 
@@ -48,7 +50,7 @@ class EmpresaController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $empresa = $form->getData();
             $this->empresaRepository->save($empresa);
-            // $this->addFlash("success","Empresa editada com sucesso!");
+            $this->addFlash("success","Empresa editada com sucesso!");
             return $this->redirectToRoute('list_empresa');
         }
 

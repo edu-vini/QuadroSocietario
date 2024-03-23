@@ -10,7 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_SOCIO')]
 class SocioController extends AbstractController {
     private SocioRepository $socioRepository;
     private EmpresaRepository $empresaRepository;
@@ -31,7 +33,7 @@ class SocioController extends AbstractController {
         if($form->isSubmitted() && $form->isValid()){
             $socio = $form->getData();
             $this->socioRepository->save($socio);
-            // $this->addFlash("success","Socio criado com sucesso!");
+            $this->addFlash("success","Socio criado com sucesso!");
             return $this->redirectToRoute('list_socio');
         }
 

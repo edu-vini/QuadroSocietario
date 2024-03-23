@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
+use App\Repository\SocioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: SocioRepository::class)]
 class Socio {
     #[ORM\Id]
     #[ORM\GeneratedValue]

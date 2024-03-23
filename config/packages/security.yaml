@@ -2,16 +2,36 @@ security:
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
+        
+            # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\Usuario
+                property: nomeUsuario
+        backend_users:
+            memory:
+                users:
+                    admin: {password: '$2y$07$Ce5tslZHxEGi3ja5YwHK1.oBeriJR2C8nLXpKRyU16.xC5XPD7RRW', roles: ['ROLE_ADMIN']}
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_EMPRESA, ROLE_SOCIO, ROLE_USUARIO]                  
+                    
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            form_login: 
+                login_path: form_login
+                check_path: form_login
+            logout:
+                path: /logout
+            entry_point: App\Security\AuthenticationEntryPoint
+            access_denied_handler: App\Security\AccessDeinedHandler
+            context: 'teste'
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
