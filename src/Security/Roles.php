@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Security;
-use Symfony\Contracts\Translation\TranslatableInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class Roles {
     public static function get(): array {

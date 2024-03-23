@@ -8,20 +8,20 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col"></th>
 					<th scope="col">#</th>
 					<th scope="col">Nome</th>
+					<th scope="col"></th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for usuario in list %}
 					<tr>
-						<td>
-							<a href="/usuario/{{usuario.id}}">Editar</a>
-							<a href="/usuario/{{usuario.id}}/excluir">Excluir</a>
-						</td>
 						<th scope="row">{{usuario.id}}</th>						
-						<td scope="row">{{usuario.nomeUsuario}}</td>						
+						<td scope="row">{{usuario.nomeUsuario}}</td>			
+						<td>
+							<a href="/usuario/{{usuario.id}}" class="btn btn-secondary">Editar</a>
+							<a href="/usuario/{{usuario.id}}/excluir" class="btn btn-danger">Excluir</a>
+						</td>			
 					</tr>
 				{% endfor %}
 			</tbody>

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route(path: '/usuario')]
 class UsuarioController extends AbstractController {
@@ -95,15 +96,22 @@ class UsuarioController extends AbstractController {
             'form' => $form
         ]);
     }
+    
     #[IsGranted('ROLE_ADMIN')]
-
     #[Route(path: '/{id}/excluir', name: 'delete_usuario')]
     public function delete(int $id): Response {
+        $usuarioLogado = $this->getUser();
+        $usuario = $this->usuarioRepository->find($id);
+
+        if($usuarioLogado === $usuario){
+            $this->addFlash('warning','Você não pode deletar o usuário, está logado nele!');
+            return $this->redirectToRoute('home');
+        } 
         $this->usuarioRepository->delete($id);
         return $this->redirectToRoute('list_usuario');
     }
-    #[IsGranted('ROLE_ADMIN')]
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '', name: 'list_usuario')]
     public function list(): Response {
         return $this->render('usuario/list.html.twig', [

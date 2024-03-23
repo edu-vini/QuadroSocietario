@@ -36,6 +36,7 @@ class UsuarioType extends AbstractType {
                 ]
             ])
             ->add('roles',  ChoiceType::class, [
+                'label'=>'Permissões',
                 'choices' => Roles::get(),
                 'expanded' => false,
                 'multiple' => true
