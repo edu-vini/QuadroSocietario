@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Entity;
+namespace App\Api\Docs\Entity;
 
 use OpenApi\Attributes as OA;
 
@@ -26,7 +26,16 @@ use OpenApi\Attributes as OA;
             new OA\Property(property: 'cpf', type: 'string'),
             new OA\Property(property: 'nome', type: 'string'),
             new OA\Property(property: 'endereco', type: 'string'),
-            new OA\Property(property: 'telefone', type: 'string')
+            new OA\Property(property: 'telefone', type: 'string'),
+            new OA\Property(
+                property: 'empresas', 
+                type: 'array',
+                items: new OA\Items( 
+                    properties: [
+                        new OA\Property(property: 'id', type: 'integer'),
+                    ]
+                )
+            )
         ]
     )
 )]

@@ -21,14 +21,14 @@ class EmpresaRepository extends AbstractRepository {
         $this->getEntityManager()->flush();
     }
 
-    public function getSocios(Empresa $empresa): array {
+    public function findSocios(int $id): array {
         $conn = $this->getEntityManager()->getConnection();
         $sql = "
             SELECT s.id, s.cpf, s.nome, s.endereco, s.telefone
             FROM socio s LEFT JOIN socio_empresa se ON s.id = se.socio_id
             WHERE se.empresa_id = :id 
         ";
-        $result = $conn->executeQuery($sql, ['id'=>$empresa->getId()]);
+        $result = $conn->executeQuery($sql, ['id'=>$id]);
         return $result->fetchAllAssociative();
     }
 }
