@@ -15,17 +15,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EmpresaType extends AbstractType {
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
         ->add('cnpj', TextType::class, [
+            'label'=>'CNPJ',
             'attr' => [
                 'data-mask' => '00.000.000/0000-00',
                 'minlength' => 18
             ]
         ])
-        ->add('razaoSocial', TextType::class)
+        ->add('razaoSocial', TextType::class, [
+            'label'=> 'Razão Social'
+        ])
         ->add('fantasia', TextType::class)
-        ->add('endereco', TextType::class)
+        ->add('endereco', TextType::class, [
+            'label'=>'Endereço'
+        ])
         ->add('telefone', TextType::class, [
             'attr' => [
                 'data-mask' => '(00) 0 0000-0000',
@@ -37,7 +42,7 @@ class EmpresaType extends AbstractType {
     ;
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
+    public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
             'data_class' => Empresa::class,
             'socios' => new ArrayCollection()
