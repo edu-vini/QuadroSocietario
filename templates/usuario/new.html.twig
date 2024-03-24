@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <h1>Usuário
+                <a href="{{path('list_usuario')}}" class="btn btn-primary col-sm-2">Voltar</a>
+            </h1>
+            {{form(form)}}        
+        </div>
+    </div>
+{% endblock content %}

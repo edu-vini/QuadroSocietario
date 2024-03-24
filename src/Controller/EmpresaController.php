@@ -9,15 +9,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_EMPRESA')]
+
+#[Route(path: '/empresa')]
 class EmpresaController extends AbstractController {
-    private EmpresaRepository $empresaRepository;
-    private SocioRepository $socioRepository;
-    public function __construct(EmpresaRepository $empresaRepository, SocioRepository $socioRepository){
-        $this->empresaRepository = $empresaRepository;
-        $this->socioRepository = $socioRepository;
-    }
-    #[Route(path: '/empresa/incluir', name: "form_empresa")]
+    public function __construct(
+        private EmpresaRepository $empresaRepository, 
+        private SocioRepository $socioRepository
+    ){}
+
+    #[Route(path: '/incluir', name: "form_empresa")]
     public function new(Request $request): Response {
         $empresa = new Empresa();
         
@@ -36,7 +39,7 @@ class EmpresaController extends AbstractController {
         ]);
     }
 
-    #[Route(path: '/empresa/{id}', name: "form_empresa_edit")]
+    #[Route(path: '/{id}', name: "form_empresa_edit")]
     public function edit(int $id, Request $request): Response {
         
         $empresa = $this->empresaRepository->find($id);
@@ -55,18 +58,38 @@ class EmpresaController extends AbstractController {
         ]);
     }
 
-    #[Route(path:'/empresa/{id}/excluir', name: 'delete_empresa')]
+    #[Route(path:'/{id}/excluir', name: 'delete_empresa')]
     public function delete(int $id): Response {
         $this->empresaRepository->delete($id);        
         return $this->redirectToRoute('list_empresa');
     }
 
-    #[Route(path:'/empresa',name:'list_empresa')]
+    #[Route(path:'',name:'list_empresa')]
     public function list(): Response {
         $empresas = $this->empresaRepository->findAll();
 
         return $this->render('empresa/list.html.twig', [
             'list' => $empresas
         ]);
+    }
+
+    #[Route(path:'/{id}/socios', name: 'list_socio_empresa')]
+    public function listSocios(int $id): response {
+        $empresa = $this->empresaRepository->find($id);
+        $socios = $this->empresaRepository->getSocios($empresa);
+        return $this->render('empresa/socios.html.twig',[
+            'list' => $socios,
+            'empresa'=>$empresa
+        ]);
+    }
+
+    #[Route(path:'/{idEmpresa}/socio/{idSocio}/remover', name: 'remover_socio_empresa')]
+    public function removerSocio(int $idEmpresa, int $idSocio): response {
+
+        $socio = $this->socioRepository->find($idSocio);
+        $socio->removeEmpresa($this->empresaRepository->find($idEmpresa));
+        $this->socioRepository->save($socio);
+
+        return $this->redirectToRoute('list_socio_empresa',['id'=>$idEmpresa]);
     }
 }

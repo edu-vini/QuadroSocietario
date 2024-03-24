@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="content"  style="width: 35%">
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+                <h1>Usuário			
+                    <a href="{{path('form_login')}}" class="btn btn-primary col-sm-2 ">Voltar</a>
+                </h1>
+                {{form(form)}}        
+            </div>
+        </div>
+    </div>
+{% endblock body %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+	<div class="list">
+		<h1>Lista de Usuário
+			<a href="{{path('form_usuario')}}" class="btn btn-primary col-sm-2 ">Adicionar</a>
+		</h1>
+		<div class="container">
+			<div class="row table-header">
+				<div class="col-sm-1"> # </div>
+				<div class="col-sm-9"> Nome do Usuário </div>
+				<div class="col-sm-2"> Ações </div>
+			</div>
+			{% for usuario in list %}
+			<div class="row table-content">
+				<div class="col-sm-1"> {{usuario.id}} </div>
+				<div class="col-sm-9"> {{usuario.nomeUsuario}}  </div>
+				<div class="col-sm-2">
+					<a href="{{ path('form_usuario_edit', {id: usuario.id}) }}" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
+					<a href="{{ path('delete_usuario', {id: usuario.id}) }}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

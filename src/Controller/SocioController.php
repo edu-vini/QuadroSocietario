@@ -10,13 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_SOCIO')]
 class SocioController extends AbstractController {
-    private SocioRepository $socioRepository;
-    private EmpresaRepository $empresaRepository;
-    public function __construct(SocioRepository $socioRepository, EmpresaRepository $empresaRepository) {
-        $this->socioRepository = $socioRepository;
-        $this->empresaRepository = $empresaRepository;
+    public function __construct(
+        private SocioRepository $socioRepository, 
+        private EmpresaRepository $empresaRepository) {
     }
 
     #[Route(path: '/socio/incluir', name: "form_socio")]
