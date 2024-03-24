@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Empresa;
 use App\Form\Type\EmpresaType;
 use App\Repository\EmpresaRepository;
@@ -77,7 +76,7 @@ class EmpresaController extends AbstractController {
     #[Route(path:'/{id}/socios', name: 'list_socio_empresa')]
     public function listSocios(int $id): response {
         $empresa = $this->empresaRepository->find($id);
-        $socios = $this->empresaRepository->getSocios($empresa);
+        $socios = $this->empresaRepository->findSocios($id);
         return $this->render('empresa/socios.html.twig',[
             'list' => $socios,
             'empresa'=>$empresa
