@@ -21,6 +21,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            provider: app_user_provider
+            pattern: /docs
+            json_login:
+                check_path: api_login
+                username_path: login
+                password_path: password
+            access_token: 
+                token_handler: App\Api\Security\AccessTokenHandler
+                token_extractors: query_string
         main:
             lazy: true
             provider: app_user_provider
@@ -29,6 +39,7 @@ security:
                 check_path: form_login
             logout:
                 path: /logout
+
             entry_point: App\Security\AuthenticationEntryPoint
             access_denied_handler: App\Security\AccessDeinedHandler
             context: 'teste'

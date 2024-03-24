@@ -40,18 +40,20 @@ class EmpresaService {
             $empresa->setCnpj($request->getPayload()->get('cnpj'));
         }
         if($request->getPayload()->has('razaoSocial')){
-            $empresa->setCnpj($request->getPayload()->get('razaoSocial'));
+            $empresa->setRazaoSocial($request->getPayload()->get('razaoSocial'));
         }
         if($request->getPayload()->has('fantasia')){
-            $empresa->setCnpj($request->getPayload()->get('fantasia'));
+            $empresa->setFantasia($request->getPayload()->get('fantasia'));
         }
         if($request->getPayload()->has('endereco')){
-            $empresa->setCnpj($request->getPayload()->get('endereco'));
+            $empresa->setEndereco($request->getPayload()->get('endereco'));
         }
         if($request->getPayload()->has('telefone')){
-            $empresa->setCnpj($request->getPayload()->get('telefone'));
+            $empresa->setTelefone($request->getPayload()->get('telefone'));
         }
+        
         $this->empresaRepository->save($empresa);
+
         return [
             'status' => 'success',
             'message' => 'Empresa Atualizada com Sucesso!'

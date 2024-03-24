@@ -47,13 +47,13 @@ class SocioService {
             $socio->setCpf($request->getPayload()->get('cpf'));
         }
         if($request->getPayload()->has('nome')){
-            $socio->setCpf($request->getPayload()->get('nome'));
+            $socio->setNome($request->getPayload()->get('nome'));
         }
         if($request->getPayload()->has('endereco')){
-            $socio->setCpf($request->getPayload()->get('endereco'));
+            $socio->setEndereco($request->getPayload()->get('endereco'));
         }
         if($request->getPayload()->has('telefone')){
-            $socio->setCpf($request->getPayload()->get('telefone'));
+            $socio->setTelefone($request->getPayload()->get('telefone'));
         }
         if($request->getPayload()->has('empresas')){
             $empresas = $request->toArray()['empresas'];
@@ -63,7 +63,9 @@ class SocioService {
                 }
             }
         }
+        
         $this->socioRepository->save($socio);
+
         return [
             'status'=>'success',
             'message'=> 'Sócio Atualizado com Sucesso!'
