@@ -15,7 +15,7 @@ class DocController extends AbstractController {
 
     #[Route(path: '/swagger.json', name:'json_swagger')]
     public function swaggerJson(): Response {
-        return $this->json(OA\Generator::scan(['../src/Api']));
+        return $this->json(OA\Generator::scan(['../src/Api/Docs']));
     }
 
 }
